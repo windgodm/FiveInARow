@@ -1,0 +1,2 @@
+# FiveInARow
+FiveInARow(Gomoku, Gobang)
