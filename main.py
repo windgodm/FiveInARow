@@ -1,7 +1,7 @@
 import time
 from fir import FIR
-from pygamegui import firGui
-from ai import AIRand, AIDefender
+from pygamegui import FirGui
+from ai import AIRand, AIDefender1, AIDefender2
 
 def main():
 
@@ -12,14 +12,15 @@ def main():
     s2 = ['Black win!', 'White win!']
 
     fir = FIR(size)
-    gui = firGui(size, fir)
+    gui = FirGui(size, fir)
 
     # init ai
-    ai1 = AIDefender(2, fir)
+    # ai1 = AIDefender1(1, fir)
+    ai2 = AIDefender2(2, fir)
 
     # init players list
-    player = [gui.run, ai1.run]
-    ais = [ai1]
+    player = [gui.run, ai2.run]
+    ais = [ai2]
     
     # main loop
     while True:
@@ -40,7 +41,7 @@ def main():
                 gui.draw_win()
                 break
 
-            time.sleep(0.05)
+            # time.sleep(0.5)
 
         gui.run()
 

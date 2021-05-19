@@ -1,7 +1,7 @@
 import pygame
 import sys
 
-class GobangGui():
+class FirGui():
 
     def __init__(self, size, gobang):
 
