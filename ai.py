@@ -1,6 +1,7 @@
 from random import randint
 from FirDefender1 import FirDefender1
 from FirDefender2 import FirDefender2
+from FirDefender3 import FirDefender3
 
 
 class AIRand():
@@ -113,3 +114,47 @@ class AIDefender2():
             self.fir_defender.update_my()
 
         return result
+
+
+class AIDefender3():
+
+    def __init__(self, color, fir):
+
+        # u, d, l, r, ul, dr, ur, dl
+        self.drcs = [(-1,0), (1,0), (0,-1), (0,1), (-1,-1), (1,1), (-1,1), (1,-1)]
+
+        self.color = color
+        if color == 1:
+            self.dcolor = 2
+        else:
+            self.dcolor = 1
+        self.model = fir
+        
+        self.fir_defender = FirDefender3(color, fir)
+
+    def reset(self):
+        
+        self.fir_defender.reset()
+        
+
+    def run(self):
+
+        result = 1
+
+        # update defender
+        row = self.model.last_move[0]
+        if row != -1:
+            self.fir_defender.update_op()
+
+        # get best ans
+        y, x = self.fir_defender.suggest()
+        
+        # move
+        result = self.model.move(y, x)
+
+        # update defender
+        if result == 0:
+            self.fir_defender.update_my()
+
+        return result
+

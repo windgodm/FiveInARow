@@ -1,12 +1,11 @@
-import time
 from fir import FIR
 from pygamegui import FirGui
-from ai import AIRand, AIDefender1, AIDefender2
+from ai import AIRand, AIDefender1, AIDefender2, AIDefender3
 
 def main():
 
     # init model and gui
-    size = 7
+    size = 15
 
     s1 = ['B', 'W']
     s2 = ['Black win!', 'White win!']
@@ -14,13 +13,24 @@ def main():
     fir = FIR(size)
     gui = FirGui(size, fir)
 
-    # init ai
-    # ai1 = AIDefender1(1, fir)
-    ai2 = AIDefender2(2, fir)
+    # read
+    with open('config.txt', 'r') as f:
+        s = [int(x) for x in f.read().split()]
+
+    # ready init ai
+    ai_init = [AIRand, AIDefender1, AIDefender2, AIDefender3]
 
     # init players list
-    player = [gui.run, ai2.run]
-    ais = [ai2]
+    player = []
+    ais = []
+    for i in range(2):
+        x = s[i]
+        if x == -1:
+            player.append(gui.run)
+        else:
+            ai = ai_init[x](i+1, fir)
+            player.append(ai.run)
+            ais.append(ai)
     
     # main loop
     while True:
